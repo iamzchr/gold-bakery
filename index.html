@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Bakery - Premium Artisanal Bread</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (via CDN for single file setup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        luxury: {
+                            black: '#121212',
+                            dark: '#1A1A1A',
+                            gold: '#D4AF37',
+                            goldhover: '#B5952F',
+                            darkbrown: '#3E2723',
+                            lightbrown: '#D7CCC8',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-short': 'bounce 0.5s ease-in-out 1',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for specific vanilla interactions and smooth effects -->
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #3E2723; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+        /* Glassmorphism for scrolling navbar */
+        .glass-nav {
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Product Card Hover Effects */
+        .product-card .add-to-cart-btn {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .product-card:hover .add-to-cart-btn {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .product-card .img-wrapper img {
+            transition: transform 0.7s ease;
+        }
+        .product-card:hover .img-wrapper img {
+            transform: scale(1.1);
+        }
+        .product-card:hover .img-overlay {
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* Hero Zoom Animation */
+        .hero-bg {
+            animation: slowZoom 20s infinite alternate linear;
+        }
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .cart-pop {
+            animation: pop 0.3s ease-out;
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-luxury-black text-luxury-lightbrown font-sans antialiased selection:bg-luxury-gold selection:text-luxury-black">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <i class="fa-solid fa-wheat-awn text-luxury-gold text-3xl group-hover:rotate-12 transition-transform"></i>
+                <span class="font-serif text-2xl font-bold tracking-wider text-white">GOLD <span class="text-luxury-gold">BAKERY</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Beranda</a>
+                <a href="#menu" class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Menu</a>
+                <a href="#about" class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Tentang Kami</a>
+                
+                <!-- Cart Icon -->
+                <button id="cart-btn" class="relative group ml-4 p-2">
+                    <i class="fa-solid fa-bag-shopping text-xl text-white group-hover:text-luxury-gold transition-colors"></i>
+                    <span id="cart-count" class="absolute top-0 right-0 -mt-1 -mr-1 bg-luxury-gold text-luxury-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-luxury-black">0</span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="md:hidden flex items-center gap-4">
+                <button id="mobile-cart-btn" class="relative group p-2">
+                    <i class="fa-solid fa-bag-shopping text-xl text-white"></i>
+                    <span id="mobile-cart-count" class="absolute top-0 right-0 -mt-1 -mr-1 bg-luxury-gold text-luxury-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-luxury-black">0</span>
+                </button>
+                <button id="mobile-menu-btn" class="text-white hover:text-luxury-gold transition-colors focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="md:hidden absolute top-full left-0 w-full bg-luxury-dark border-b border-luxury-darkbrown hidden flex-col">
+            <a href="#home" class="px-6 py-4 border-b border-luxury-darkbrown text-center uppercase tracking-widest hover:text-luxury-gold">Beranda</a>
+            <a href="#menu" class="px-6 py-4 border-b border-luxury-darkbrown text-center uppercase tracking-widest hover:text-luxury-gold">Menu</a>
+            <a href="#about" class="px-6 py-4 text-center uppercase tracking-widest hover:text-luxury-gold">Tentang Kami</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Hero Background -->
+        <div class="absolute inset-0 z-0 bg-luxury-black">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop" 
+                 alt="Artisanal Bread Background" 
+                 class="hero-bg object-cover w-full h-full opacity-40">
+        </div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 z-0 bg-gradient-to-t from-luxury-black via-transparent to-luxury-black/80"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-3xl mx-auto mt-20">
+            <p class="text-luxury-gold tracking-[0.3em] text-sm md:text-base mb-4 uppercase animate-fade-in">Kesenian Memanggang</p>
+            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 leading-tight animate-fade-in" style="animation-delay: 0.2s;">
+                Kelezatan <span class="italic text-luxury-gold text-opacity-90">Premium</span> di Setiap Gigitan.
+            </h1>
+            <p class="text-luxury-lightbrown mb-10 text-lg md:text-xl font-light animate-fade-in" style="animation-delay: 0.4s;">
+                Dibuat dengan bahan-bahan pilihan terbaik, resep tradisional, dan dedikasi tinggi untuk menghadirkan roti berkualitas artisan ke meja Anda.
+            </p>
+            <div class="animate-fade-in" style="animation-delay: 0.6s;">
+                <a href="#menu" class="inline-block bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold uppercase tracking-wider py-4 px-10 rounded-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                    Lihat Menu Kami
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Menu Section -->
+    <section id="menu" class="py-24 bg-luxury-dark relative">
+        <!-- Decorative subtle pattern/texture could go here -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Koleksi <span class="text-luxury-gold italic">Artisan</span></h2>
+                <div class="h-1 w-24 bg-luxury-gold mx-auto rounded-full mb-6"></div>
+                <p class="max-w-2xl mx-auto text-luxury-lightbrown">Roti kami dipanggang segar setiap pagi menggunakan teknik sourdough alami dan gandum kualitas dunia.</p>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Product 1 -->
+                <div class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
+                    <div class="img-wrapper relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?q=80&w=2070&auto=format&fit=crop" alt="Rustic Sourdough" class="w-full h-full object-cover">
+                        <div class="img-overlay absolute inset-0 transition-colors duration-300"></div>
+                        
+                        <!-- Add to Cart Overlay Button -->
+                        <div class="add-to-cart-btn absolute bottom-0 left-0 w-full p-4">
+                            <button onclick="addToCart('Rustic Sourdough', 45000)" class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-serif text-2xl text-white mb-2">Rustic Sourdough</h3>
+                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Roti klasik dengan fermentasi alami selama 48 jam, menghasilkan kulit luar yang renyah dan bagian dalam yang lembut.</p>
+                        <p class="text-luxury-gold text-xl font-bold">Rp 45.000</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
+                    <div class="img-wrapper relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=2116&auto=format&fit=crop" alt="Butter Croissant" class="w-full h-full object-cover">
+                        <div class="img-overlay absolute inset-0 transition-colors duration-300"></div>
+                        
+                        <div class="add-to-cart-btn absolute bottom-0 left-0 w-full p-4">
+                            <button onclick="addToCart('Premium Butter Croissant', 28000)" class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-serif text-2xl text-white mb-2">Butter Croissant</h3>
+                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Dibuat dari 100% French Butter premium dengan puluhan lapisan renyah (flaky) yang lumer di mulut.</p>
+                        <p class="text-luxury-gold text-xl font-bold">Rp 28.000</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
+                    <div class="img-wrapper relative h-72 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1612250269352-78d59d18e2fb?q=80&w=1974&auto=format&fit=crop" alt="Dark Chocolate Babka" class="w-full h-full object-cover">
+                        <div class="img-overlay absolute inset-0 transition-colors duration-300"></div>
+                        
+                        <div class="add-to-cart-btn absolute bottom-0 left-0 w-full p-4">
+                            <button onclick="addToCart('Dark Chocolate Babka', 65000)" class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-serif text-2xl text-white mb-2">Dark Choco Babka</h3>
+                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Roti manis tradisional Eropa Timur yang dianyam dengan selai coklat Belgia 70% dark chocolate.</p>
+                        <p class="text-luxury-gold text-xl font-bold">Rp 65.000</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-luxury-black font-bold uppercase tracking-wider py-3 px-8 rounded-sm transition-colors duration-300">
+                    Lihat Semua Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-luxury-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image -->
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute -inset-4 border border-luxury-gold opacity-30 translate-x-4 translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=2070&auto=format&fit=crop" alt="Baker at work" class="relative z-10 w-full h-[500px] object-cover rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                <!-- Text -->
+                <div class="w-full lg:w-1/2">
+                    <h4 class="text-luxury-gold tracking-widest uppercase mb-2 text-sm">Tentang Gold Bakery</h4>
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Filosofi Dibalik <br>Setiap <span class="italic text-luxury-gold">Adonan</span></h2>
+                    <p class="text-luxury-lightbrown mb-6 leading-relaxed">
+                        Sejak didirikan, Gold Bakery memiliki satu visi yang jelas: mengembalikan kejayaan roti otentik. Kami percaya bahwa roti terbaik tidak memerlukan banyak bahan turunan buatan, melainkan waktu, kesabaran, dan bahan baku alam kualitas premium.
+                    </p>
+                    <p class="text-luxury-lightbrown mb-8 leading-relaxed">
+                        Kami mengimpor gandum pilihan dan menggunakan ragi alami yang telah kami kembangkan selama bertahun-tahun. Kami tidak sekadar memanggang roti; kami menciptakan karya seni yang bisa Anda nikmati setiap hari.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 border-t border-luxury-darkbrown pt-8">
+                        <div>
+                            <h5 class="text-white font-serif text-xl mb-1">100%</h5>
+                            <p class="text-luxury-gold text-sm uppercase tracking-wider">Natural Ingredients</p>
+                        </div>
+                        <div>
+                            <h5 class="text-white font-serif text-xl mb-1">48 Jam</h5>
+                            <p class="text-luxury-gold text-sm uppercase tracking-wider">Proses Fermentasi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-luxury-dark border-t border-luxury-darkbrown pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-12">
+                
+                <!-- Brand Info -->
+                <div class="flex flex-col items-center md:items-start">
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-wheat-awn text-luxury-gold text-2xl"></i>
+                        <span class="font-serif text-xl font-bold tracking-wider text-white">Gold <span class="text-luxury-gold">BAKERY</span></span>
+                    </a>
+                    <p class="text-luxury-lightbrown text-sm">Kemewahan otentik dari oven kami langsung ke meja makan Anda. Melayani pesanan personal dan korporat.</p>
+                </div>
+
+                <!-- Links -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-white font-serif text-lg mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-luxury-lightbrown text-sm">
+                        <li><a href="#home" class="hover:text-luxury-gold transition-colors">Beranda</a></li>
+                        <li><a href="#menu" class="hover:text-luxury-gold transition-colors">Menu Roti</a></li>
+                        <li><a href="#about" class="hover:text-luxury-gold transition-colors">Kisah Kami</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-white font-serif text-lg mb-4">Kunjungi Kami</h4>
+                    <p class="text-luxury-lightbrown text-sm mb-4">
+                        Jl. Sudirman No. 45, Jakarta<br>
+                        Buka setiap hari: 07.00 - 21.00
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all">
+                            <i class="fa-regular fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center pt-8 border-t border-luxury-darkbrown">
+                <p class="text-xs text-luxury-lightbrown/60">&copy; 2026 Gold Bakery. All rights reserved. Designed with <i class="fa-solid fa-heart text-luxury-gold"></i> iamzchr.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast (Hidden by default) -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-luxury-gold text-luxury-black px-6 py-4 rounded-sm shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 font-bold flex items-center gap-3">
+        <i class="fa-solid fa-check-circle text-xl"></i>
+        <span id="toast-message">Ditambahkan ke keranjang!</span>
+    </div>
+
+    <!-- Vanilla JavaScript Interactions -->
+    <script>
+        // 1. Sticky Transparent-to-Solid Navbar
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2'); // Shrink slightly
+            } else {
+                navbar.classList.remove('glass-nav');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // 2. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            // Switch icon between bars and times (X)
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // 3. Dynamic Shopping Cart & Toast Notification
+        let cartItems = 0;
+        const cartCountDesk = document.getElementById('cart-count');
+        const cartCountMob = document.getElementById('mobile-cart-count');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        let toastTimeout;
+
+        function addToCart(productName, price) {
+            // Increment count
+            cartItems++;
+            
+            // Update UI Counters
+            cartCountDesk.innerText = cartItems;
+            cartCountMob.innerText = cartItems;
+            
+            // Add pop animation to counters
+            cartCountDesk.classList.remove('cart-pop');
+            cartCountMob.classList.remove('cart-pop');
+            // Trigger reflow to restart animation
+            void cartCountDesk.offsetWidth; 
+            cartCountDesk.classList.add('cart-pop');
+            cartCountMob.classList.add('cart-pop');
+
+            // Show Notification Toast
+            toastMessage.innerText = `${productName} ditambahkan!`;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Hide Toast after 3 seconds
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
