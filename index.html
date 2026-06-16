@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gold Bakery - Premium Artisanal Bread</title>
-    
+    <title>Bless Bakery - Premium Artisanal Bread</title>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS (via CDN for single file setup) -->
+    <!-- Tailwind CSS (via CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
@@ -36,7 +39,6 @@
                         sans: ['Lato', 'sans-serif'],
                     },
                     animation: {
-                        'bounce-short': 'bounce 0.5s ease-in-out 1',
                         'fade-in': 'fadeIn 1s ease-out forwards',
                     },
                     keyframes: {
@@ -50,210 +52,393 @@
         }
     </script>
 
-    <!-- Custom CSS for specific vanilla interactions and smooth effects -->
+    <!-- Custom CSS -->
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #3E2723; border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-        /* Glassmorphism for scrolling navbar */
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3E2723;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
         .glass-nav {
-            background: rgba(18, 18, 18, 0.85);
+            background: rgba(18, 18, 18, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* Product Card Hover Effects */
+        /* Desktop Dropdown Visibility */
+        .dropdown-menu {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu.active {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .product-card .add-to-cart-btn {
             transform: translateY(100%);
             opacity: 0;
             transition: all 0.3s ease-in-out;
         }
+
         .product-card:hover .add-to-cart-btn {
             transform: translateY(0);
             opacity: 1;
         }
+
         .product-card .img-wrapper img {
             transition: transform 0.7s ease;
         }
+
         .product-card:hover .img-wrapper img {
             transform: scale(1.1);
         }
+
         .product-card:hover .img-overlay {
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
         }
 
-        /* Hero Zoom Animation */
         .hero-bg {
             animation: slowZoom 20s infinite alternate linear;
         }
+
         @keyframes slowZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
         }
 
         .cart-pop {
             animation: pop 0.3s ease-out;
         }
+
         @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.5); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
-<body class="bg-luxury-black text-luxury-lightbrown font-sans antialiased selection:bg-luxury-gold selection:text-luxury-black">
+
+<body
+    class="bg-luxury-black text-luxury-lightbrown font-sans antialiased selection:bg-luxury-gold selection:text-luxury-black">
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <!-- Logo -->
             <a href="#" class="flex items-center gap-2 group">
-                <i class="fa-solid fa-wheat-awn text-luxury-gold text-3xl group-hover:rotate-12 transition-transform"></i>
-                <span class="font-serif text-2xl font-bold tracking-wider text-white">GOLD <span class="text-luxury-gold">BAKERY</span></span>
+                <i
+                    class="fa-solid fa-wheat-awn text-luxury-gold text-3xl group-hover:rotate-12 transition-transform"></i>
+                <span class="font-serif text-2xl font-bold tracking-wider text-white">BLESS <span
+                        class="text-luxury-gold">BAKERY</span></span>
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="#home" class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Beranda</a>
-                <a href="#menu" class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Menu</a>
-                <a href="#about" class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Tentang Kami</a>
-                
+            <div class="hidden lg:flex space-x-6 items-center">
+                <a href="#home"
+                    class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">Home</a>
+                <a href="#about"
+                    class="text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">About Us</a>
+
+                <!-- Product Dropdown -->
+                <div class="relative py-4 cursor-pointer desktop-dropdown-container">
+                    <button
+                        class="desktop-dropdown-btn flex items-center gap-1 text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">
+                        Product <i class="fa-solid fa-chevron-down text-[10px] transition-transform icon-arrow"></i>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 top-full mt-0 w-56 bg-luxury-dark border border-luxury-darkbrown shadow-xl rounded-sm overflow-hidden z-50">
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Artisan
+                            Breads</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Cakes
+                            & Tart</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Pastry
+                            & Croissant</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors">Cookies
+                            & Hampers</a>
+                    </div>
+                </div>
+
+                <!-- Info Dropdown -->
+                <div class="relative py-4 cursor-pointer desktop-dropdown-container">
+                    <button
+                        class="desktop-dropdown-btn flex items-center gap-1 text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">
+                        Info <i class="fa-solid fa-chevron-down text-[10px] transition-transform icon-arrow"></i>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 top-full mt-0 w-48 bg-luxury-dark border border-luxury-darkbrown shadow-xl rounded-sm overflow-hidden z-50">
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">News
+                            & Events</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Special
+                            Promo</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Store
+                            Location</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors">Career</a>
+                    </div>
+                </div>
+
+                <!-- Order Dropdown -->
+                <div class="relative py-4 cursor-pointer desktop-dropdown-container">
+                    <button
+                        class="desktop-dropdown-btn flex items-center gap-1 text-sm tracking-widest uppercase hover:text-luxury-gold transition-colors">
+                        Order <i class="fa-solid fa-chevron-down text-[10px] transition-transform icon-arrow"></i>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 top-full mt-0 w-56 bg-luxury-dark border border-luxury-darkbrown shadow-xl rounded-sm overflow-hidden z-50">
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">How
+                            to Order</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Delivery
+                            Area</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors border-b border-luxury-darkbrown/50">Custom
+                            Cake Order</a>
+                        <a href="#"
+                            class="block px-6 py-3 text-sm text-luxury-lightbrown hover:text-luxury-gold hover:bg-luxury-black transition-colors">Corporate
+                            Order</a>
+                    </div>
+                </div>
+
+                <a href="#hotline"
+                    class="text-sm tracking-widest uppercase text-luxury-gold hover:text-white transition-colors"><i
+                        class="fa-solid fa-phone mr-1"></i> Hotline</a>
+
                 <!-- Cart Icon -->
                 <button id="cart-btn" class="relative group ml-4 p-2">
-                    <i class="fa-solid fa-bag-shopping text-xl text-white group-hover:text-luxury-gold transition-colors"></i>
-                    <span id="cart-count" class="absolute top-0 right-0 -mt-1 -mr-1 bg-luxury-gold text-luxury-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-luxury-black">0</span>
+                    <i
+                        class="fa-solid fa-bag-shopping text-xl text-white group-hover:text-luxury-gold transition-colors"></i>
+                    <span id="cart-count"
+                        class="absolute top-0 right-0 -mt-1 -mr-1 bg-luxury-gold text-luxury-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-luxury-black">0</span>
                 </button>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <div class="md:hidden flex items-center gap-4">
+            <div class="lg:hidden flex items-center gap-4">
                 <button id="mobile-cart-btn" class="relative group p-2">
                     <i class="fa-solid fa-bag-shopping text-xl text-white"></i>
-                    <span id="mobile-cart-count" class="absolute top-0 right-0 -mt-1 -mr-1 bg-luxury-gold text-luxury-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-luxury-black">0</span>
+                    <span id="mobile-cart-count"
+                        class="absolute top-0 right-0 -mt-1 -mr-1 bg-luxury-gold text-luxury-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-luxury-black">0</span>
                 </button>
-                <button id="mobile-menu-btn" class="text-white hover:text-luxury-gold transition-colors focus:outline-none">
+                <button id="mobile-menu-btn"
+                    class="text-white hover:text-luxury-gold transition-colors focus:outline-none">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="md:hidden absolute top-full left-0 w-full bg-luxury-dark border-b border-luxury-darkbrown hidden flex-col">
-            <a href="#home" class="px-6 py-4 border-b border-luxury-darkbrown text-center uppercase tracking-widest hover:text-luxury-gold">Beranda</a>
-            <a href="#menu" class="px-6 py-4 border-b border-luxury-darkbrown text-center uppercase tracking-widest hover:text-luxury-gold">Menu</a>
-            <a href="#about" class="px-6 py-4 text-center uppercase tracking-widest hover:text-luxury-gold">Tentang Kami</a>
+        <!-- Mobile Dropdown Menu (Accordion Style) -->
+        <div id="mobile-menu"
+            class="lg:hidden absolute top-full left-0 w-full bg-luxury-dark border-b border-luxury-darkbrown hidden flex-col max-h-[80vh] overflow-y-auto">
+            <a href="#home"
+                class="px-6 py-4 border-b border-luxury-darkbrown tracking-widest uppercase hover:text-luxury-gold">Home</a>
+            <a href="#about"
+                class="px-6 py-4 border-b border-luxury-darkbrown tracking-widest uppercase hover:text-luxury-gold">About
+                Us</a>
+
+            <!-- Mobile Product -->
+            <button
+                class="mobile-accordion-btn flex justify-between items-center w-full px-6 py-4 border-b border-luxury-darkbrown tracking-widest uppercase hover:text-luxury-gold">
+                <span>Product</span>
+                <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
+            </button>
+            <div class="mobile-accordion-content hidden flex-col bg-luxury-black">
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Artisan Breads</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Cakes & Tart</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Pastry & Croissant</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Cookies & Hampers</a>
+            </div>
+
+            <!-- Mobile Info -->
+            <button
+                class="mobile-accordion-btn flex justify-between items-center w-full px-6 py-4 border-b border-luxury-darkbrown tracking-widest uppercase hover:text-luxury-gold">
+                <span>Info</span>
+                <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
+            </button>
+            <div class="mobile-accordion-content hidden flex-col bg-luxury-black">
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">- News
+                    & Events</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Special Promo</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Store Location</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Career</a>
+            </div>
+
+            <!-- Mobile Order -->
+            <button
+                class="mobile-accordion-btn flex justify-between items-center w-full px-6 py-4 border-b border-luxury-darkbrown tracking-widest uppercase hover:text-luxury-gold">
+                <span>Order</span>
+                <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
+            </button>
+            <div class="mobile-accordion-content hidden flex-col bg-luxury-black">
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">- How
+                    to Order</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Delivery Area</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Custom Cake Order</a>
+                <a href="#" class="px-10 py-3 border-b border-luxury-darkbrown/50 text-sm hover:text-luxury-gold">-
+                    Corporate Order</a>
+            </div>
+
+            <a href="#hotline" class="px-6 py-4 text-luxury-gold tracking-widest uppercase hover:text-white"><i
+                    class="fa-solid fa-phone mr-2"></i> Hotline</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- Hero Background -->
         <div class="absolute inset-0 z-0 bg-luxury-black">
-            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop" 
-                 alt="Artisanal Bread Background" 
-                 class="hero-bg object-cover w-full h-full opacity-40">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop"
+                alt="Artisanal Bread Background" class="hero-bg object-cover w-full h-full opacity-40">
         </div>
-        <!-- Gradient Overlay -->
         <div class="absolute inset-0 z-0 bg-gradient-to-t from-luxury-black via-transparent to-luxury-black/80"></div>
 
-        <!-- Hero Content -->
         <div class="relative z-10 text-center px-4 max-w-3xl mx-auto mt-20">
-            <p class="text-luxury-gold tracking-[0.3em] text-sm md:text-base mb-4 uppercase animate-fade-in">Kesenian Memanggang</p>
-            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 leading-tight animate-fade-in" style="animation-delay: 0.2s;">
+            <p class="text-luxury-gold tracking-[0.3em] text-sm md:text-base mb-4 uppercase animate-fade-in">Kesenian
+                Memanggang</p>
+            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 leading-tight animate-fade-in"
+                style="animation-delay: 0.2s;">
                 Kelezatan <span class="italic text-luxury-gold text-opacity-90">Premium</span> di Setiap Gigitan.
             </h1>
-            <p class="text-luxury-lightbrown mb-10 text-lg md:text-xl font-light animate-fade-in" style="animation-delay: 0.4s;">
-                Dibuat dengan bahan-bahan pilihan terbaik, resep tradisional, dan dedikasi tinggi untuk menghadirkan roti berkualitas artisan ke meja Anda.
+            <p class="text-luxury-lightbrown mb-10 text-lg md:text-xl font-light animate-fade-in"
+                style="animation-delay: 0.4s;">
+                Dibuat dengan bahan-bahan pilihan terbaik, resep tradisional, dan dedikasi tinggi untuk menghadirkan
+                roti berkualitas artisan ke meja Anda.
             </p>
             <div class="animate-fade-in" style="animation-delay: 0.6s;">
-                <a href="#menu" class="inline-block bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold uppercase tracking-wider py-4 px-10 rounded-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                    Lihat Menu Kami
+                <a href="#product"
+                    class="inline-block bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold uppercase tracking-wider py-4 px-10 rounded-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                    Lihat Produk Kami
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Signature Menu Section -->
-    <section id="menu" class="py-24 bg-luxury-dark relative">
-        <!-- Decorative subtle pattern/texture could go here -->
+    <!-- Signature Menu Section (Product) -->
+    <section id="product" class="py-24 bg-luxury-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Koleksi <span class="text-luxury-gold italic">Artisan</span></h2>
+                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Koleksi <span
+                        class="text-luxury-gold italic">Artisan</span></h2>
                 <div class="h-1 w-24 bg-luxury-gold mx-auto rounded-full mb-6"></div>
-                <p class="max-w-2xl mx-auto text-luxury-lightbrown">Roti kami dipanggang segar setiap pagi menggunakan teknik sourdough alami dan gandum kualitas dunia.</p>
+                <p class="max-w-2xl mx-auto text-luxury-lightbrown">Roti kami dipanggang segar setiap pagi menggunakan
+                    teknik sourdough alami dan gandum kualitas dunia.</p>
             </div>
 
             <!-- Product Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                
+
                 <!-- Product 1 -->
-                <div class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
+                <div
+                    class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
                     <div class="img-wrapper relative h-72 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?q=80&w=2070&auto=format&fit=crop" alt="Rustic Sourdough" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?q=80&w=2070&auto=format&fit=crop"
+                            alt="Rustic Sourdough" class="w-full h-full object-cover">
                         <div class="img-overlay absolute inset-0 transition-colors duration-300"></div>
-                        
-                        <!-- Add to Cart Overlay Button -->
                         <div class="add-to-cart-btn absolute bottom-0 left-0 w-full p-4">
-                            <button onclick="addToCart('Rustic Sourdough', 45000)" class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
+                            <button onclick="addToCart('Rustic Sourdough', 45000)"
+                                class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
                             </button>
                         </div>
                     </div>
                     <div class="p-6 text-center">
                         <h3 class="font-serif text-2xl text-white mb-2">Rustic Sourdough</h3>
-                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Roti klasik dengan fermentasi alami selama 48 jam, menghasilkan kulit luar yang renyah dan bagian dalam yang lembut.</p>
+                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Roti klasik dengan fermentasi alami
+                            selama 48 jam, menghasilkan kulit luar yang renyah dan bagian dalam yang lembut.</p>
                         <p class="text-luxury-gold text-xl font-bold">Rp 45.000</p>
                     </div>
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
+                <div
+                    class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
                     <div class="img-wrapper relative h-72 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=2116&auto=format&fit=crop" alt="Butter Croissant" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=2116&auto=format&fit=crop"
+                            alt="Butter Croissant" class="w-full h-full object-cover">
                         <div class="img-overlay absolute inset-0 transition-colors duration-300"></div>
-                        
                         <div class="add-to-cart-btn absolute bottom-0 left-0 w-full p-4">
-                            <button onclick="addToCart('Premium Butter Croissant', 28000)" class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
+                            <button onclick="addToCart('Premium Butter Croissant', 28000)"
+                                class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
                             </button>
                         </div>
                     </div>
                     <div class="p-6 text-center">
                         <h3 class="font-serif text-2xl text-white mb-2">Butter Croissant</h3>
-                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Dibuat dari 100% French Butter premium dengan puluhan lapisan renyah (flaky) yang lumer di mulut.</p>
+                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Dibuat dari 100% French Butter
+                            premium dengan puluhan lapisan renyah (flaky) yang lumer di mulut.</p>
                         <p class="text-luxury-gold text-xl font-bold">Rp 28.000</p>
                     </div>
                 </div>
 
                 <!-- Product 3 -->
-                <div class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
+                <div
+                    class="product-card group bg-luxury-black border border-luxury-darkbrown rounded-sm overflow-hidden shadow-lg relative">
                     <div class="img-wrapper relative h-72 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1612250269352-78d59d18e2fb?q=80&w=1974&auto=format&fit=crop" alt="Dark Chocolate Babka" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1612250269352-78d59d18e2fb?q=80&w=1974&auto=format&fit=crop"
+                            alt="Dark Chocolate Babka" class="w-full h-full object-cover">
                         <div class="img-overlay absolute inset-0 transition-colors duration-300"></div>
-                        
                         <div class="add-to-cart-btn absolute bottom-0 left-0 w-full p-4">
-                            <button onclick="addToCart('Dark Chocolate Babka', 65000)" class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
+                            <button onclick="addToCart('Dark Chocolate Babka', 65000)"
+                                class="w-full bg-luxury-gold hover:bg-luxury-goldhover text-luxury-black font-bold py-3 uppercase tracking-wider rounded-sm flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
                             </button>
                         </div>
                     </div>
                     <div class="p-6 text-center">
                         <h3 class="font-serif text-2xl text-white mb-2">Dark Choco Babka</h3>
-                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Roti manis tradisional Eropa Timur yang dianyam dengan selai coklat Belgia 70% dark chocolate.</p>
+                        <p class="text-sm text-luxury-lightbrown mb-4 line-clamp-2">Roti manis tradisional Eropa Timur
+                            yang dianyam dengan selai coklat Belgia 70% dark chocolate.</p>
                         <p class="text-luxury-gold text-xl font-bold">Rp 65.000</p>
                     </div>
                 </div>
 
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#" class="inline-block border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-luxury-black font-bold uppercase tracking-wider py-3 px-8 rounded-sm transition-colors duration-300">
-                    Lihat Semua Menu
-                </a>
             </div>
         </div>
     </section>
@@ -262,22 +447,27 @@
     <section id="about" class="py-24 bg-luxury-black">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row items-center gap-16">
-                <!-- Image -->
                 <div class="w-full lg:w-1/2 relative">
-                    <div class="absolute -inset-4 border border-luxury-gold opacity-30 translate-x-4 translate-y-4"></div>
-                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=2070&auto=format&fit=crop" alt="Baker at work" class="relative z-10 w-full h-[500px] object-cover rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -inset-4 border border-luxury-gold opacity-30 translate-x-4 translate-y-4">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=2070&auto=format&fit=crop"
+                        alt="Baker at work"
+                        class="relative z-10 w-full h-[500px] object-cover rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
                 </div>
-                <!-- Text -->
                 <div class="w-full lg:w-1/2">
-                    <h4 class="text-luxury-gold tracking-widest uppercase mb-2 text-sm">Tentang Gold Bakery</h4>
-                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Filosofi Dibalik <br>Setiap <span class="italic text-luxury-gold">Adonan</span></h2>
+                    <h4 class="text-luxury-gold tracking-widest uppercase mb-2 text-sm">About Us</h4>
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Filosofi Dibalik <br>Setiap <span
+                            class="italic text-luxury-gold">Adonan</span></h2>
                     <p class="text-luxury-lightbrown mb-6 leading-relaxed">
-                        Sejak didirikan, Gold Bakery memiliki satu visi yang jelas: mengembalikan kejayaan roti otentik. Kami percaya bahwa roti terbaik tidak memerlukan banyak bahan turunan buatan, melainkan waktu, kesabaran, dan bahan baku alam kualitas premium.
+                        Sejak didirikan, Bless Bakery memiliki satu visi yang jelas: mengembalikan kejayaan roti
+                        otentik. Kami percaya bahwa roti terbaik tidak memerlukan banyak bahan turunan buatan, melainkan
+                        waktu, kesabaran, dan bahan baku alam kualitas premium.
                     </p>
                     <p class="text-luxury-lightbrown mb-8 leading-relaxed">
-                        Kami mengimpor gandum pilihan dan menggunakan ragi alami yang telah kami kembangkan selama bertahun-tahun. Kami tidak sekadar memanggang roti; kami menciptakan karya seni yang bisa Anda nikmati setiap hari.
+                        Kami mengimpor gandum pilihan dan menggunakan ragi alami yang telah kami kembangkan selama
+                        bertahun-tahun. Kami tidak sekadar memanggang roti; kami menciptakan karya seni yang bisa Anda
+                        nikmati setiap hari.
                     </p>
-                    
                     <div class="grid grid-cols-2 gap-6 border-t border-luxury-darkbrown pt-8">
                         <div>
                             <h5 class="text-white font-serif text-xl mb-1">100%</h5>
@@ -296,58 +486,83 @@
     <!-- Footer -->
     <footer class="bg-luxury-dark border-t border-luxury-darkbrown pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-12">
-                
-                <!-- Brand Info -->
-                <div class="flex flex-col items-center md:items-start">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left mb-12">
+
+                <div class="flex flex-col items-center md:items-start col-span-1 md:col-span-2 lg:col-span-1">
                     <a href="#" class="flex items-center gap-2 mb-4">
                         <i class="fa-solid fa-wheat-awn text-luxury-gold text-2xl"></i>
-                        <span class="font-serif text-xl font-bold tracking-wider text-white">Gold <span class="text-luxury-gold">BAKERY</span></span>
+                        <span class="font-serif text-xl font-bold tracking-wider text-white">BLESS <span
+                                class="text-luxury-gold">BAKERY</span></span>
                     </a>
-                    <p class="text-luxury-lightbrown text-sm">Kemewahan otentik dari oven kami langsung ke meja makan Anda. Melayani pesanan personal dan korporat.</p>
+                    <p class="text-luxury-lightbrown text-sm">Kemewahan otentik dari oven kami langsung ke meja makan
+                        Anda. Melayani pesanan personal dan korporat.</p>
                 </div>
 
-                <!-- Links -->
                 <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-white font-serif text-lg mb-4">Tautan Cepat</h4>
+                    <h4 class="text-white font-serif text-lg mb-4">Produk Kami</h4>
                     <ul class="space-y-2 text-luxury-lightbrown text-sm">
-                        <li><a href="#home" class="hover:text-luxury-gold transition-colors">Beranda</a></li>
-                        <li><a href="#menu" class="hover:text-luxury-gold transition-colors">Menu Roti</a></li>
-                        <li><a href="#about" class="hover:text-luxury-gold transition-colors">Kisah Kami</a></li>
-                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Hubungi Kami</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Artisan Breads</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Cakes & Tart</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Pastry & Croissant</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Hampers</a></li>
                     </ul>
                 </div>
 
-                <!-- Contact & Social -->
                 <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-white font-serif text-lg mb-4">Kunjungi Kami</h4>
+                    <h4 class="text-white font-serif text-lg mb-4">Informasi</h4>
+                    <ul class="space-y-2 text-luxury-lightbrown text-sm">
+                        <li><a href="#about" class="hover:text-luxury-gold transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">How to Order</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Delivery Area</a></li>
+                        <li><a href="#" class="hover:text-luxury-gold transition-colors">Store Location</a></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-white font-serif text-lg mb-4" id="hotline">Hotline & Sosmed</h4>
                     <p class="text-luxury-lightbrown text-sm mb-4">
-                        Jl. Sudirman No. 45, Jakarta<br>
+                        <i class="fa-brands fa-whatsapp text-luxury-gold mr-2"></i> +62 812 3456 7890<br>
                         Buka setiap hari: 07.00 - 21.00
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all">
+                    <div class="flex space-x-4 mt-2">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all"
+                            title="Instagram">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all">
-                            <i class="fa-brands fa-whatsapp"></i>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all"
+                            title="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all">
-                            <i class="fa-regular fa-envelope"></i>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all"
+                            title="Shopee">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.2 6c-.4-3.4-3.2-6-6.6-6-3.4 0-6.2 2.6-6.6 6H0l1.8 15.6c.2 1.4 1.4 2.4 2.8 2.4h10.8c1.4 0 2.6-1 2.8-2.4L20 6h-3.8zm-6.6-4.2c2.4 0 4.4 1.8 4.8 4.2h-9.6c.4-2.4 2.4-4.2 4.8-4.2zm6.2 19.8H3.4c-.4 0-.8-.2-.8-.8l-1.4-13.2h17.6l-1.4 13.2c0 .6-.4.8-.8.8zm-6.8-9.4c0-2-3.8-1.8-3.8-3.4 0-.6.6-1 1.4-1 1 0 1.8.4 2 .6l.6-1.4c-.4-.4-1.4-.8-2.6-.8-1.8 0-3 1-3 2.6 0 2 3.8 1.8 3.8 3.4 0 .6-.6 1-1.6 1-1.2 0-2.2-.6-2.4-.8l-.6 1.4c.6.4 1.8 1 3.2 1 1.8.2 3-1 3-2.6z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-luxury-black border border-luxury-darkbrown flex items-center justify-center text-luxury-lightbrown hover:text-luxury-gold hover:border-luxury-gold transition-all"
+                            title="WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
                         </a>
                     </div>
                 </div>
 
             </div>
-            
+
             <div class="text-center pt-8 border-t border-luxury-darkbrown">
-                <p class="text-xs text-luxury-lightbrown/60">&copy; 2026 Gold Bakery. All rights reserved. Designed with <i class="fa-solid fa-heart text-luxury-gold"></i> iamzchr.</p>
+                <p class="text-xs text-luxury-lightbrown/60">&copy; 2026 Bless Bakery. All rights reserved. Designed
+                    with <i class="fa-solid fa-heart text-luxury-gold"></i> for Artisans.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Notification Toast (Hidden by default) -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-luxury-gold text-luxury-black px-6 py-4 rounded-sm shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 font-bold flex items-center gap-3">
+    <!-- Notification Toast -->
+    <div id="toast"
+        class="fixed bottom-5 right-5 bg-luxury-gold text-luxury-black px-6 py-4 rounded-sm shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 font-bold flex items-center gap-3 pointer-events-none">
         <i class="fa-solid fa-check-circle text-xl"></i>
         <span id="toast-message">Ditambahkan ke keranjang!</span>
     </div>
@@ -356,12 +571,11 @@
     <script>
         // 1. Sticky Transparent-to-Solid Navbar
         const navbar = document.getElementById('navbar');
-        
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('glass-nav');
                 navbar.classList.remove('py-4');
-                navbar.classList.add('py-2'); // Shrink slightly
+                navbar.classList.add('py-2');
             } else {
                 navbar.classList.remove('glass-nav');
                 navbar.classList.remove('py-2');
@@ -377,8 +591,7 @@
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
             mobileMenu.classList.toggle('flex');
-            
-            // Switch icon between bars and times (X)
+
             if (mobileMenu.classList.contains('hidden')) {
                 menuIcon.classList.remove('fa-times');
                 menuIcon.classList.add('fa-bars');
@@ -388,7 +601,30 @@
             }
         });
 
-        // Close mobile menu when a link is clicked
+        // 3. Mobile Dropdown (Accordion) Logic
+        const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
+
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Toggle the content
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i');
+
+                content.classList.toggle('hidden');
+                content.classList.toggle('flex');
+
+                // Rotate Icon
+                if (content.classList.contains('flex')) {
+                    icon.style.transform = 'rotate(180deg)';
+                    this.classList.add('text-luxury-gold');
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                    this.classList.remove('text-luxury-gold');
+                }
+            });
+        });
+
+        // 4. Close mobile menu when a direct link (no sub-menu) is clicked
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -399,7 +635,7 @@
             });
         });
 
-        // 3. Dynamic Shopping Cart & Toast Notification
+        // 5. Dynamic Shopping Cart & Toast Notification
         let cartItems = 0;
         const cartCountDesk = document.getElementById('cart-count');
         const cartCountMob = document.getElementById('mobile-cart-count');
@@ -408,33 +644,64 @@
         let toastTimeout;
 
         function addToCart(productName, price) {
-            // Increment count
             cartItems++;
-            
-            // Update UI Counters
             cartCountDesk.innerText = cartItems;
             cartCountMob.innerText = cartItems;
-            
-            // Add pop animation to counters
+
             cartCountDesk.classList.remove('cart-pop');
             cartCountMob.classList.remove('cart-pop');
-            // Trigger reflow to restart animation
-            void cartCountDesk.offsetWidth; 
+            void cartCountDesk.offsetWidth;
             cartCountDesk.classList.add('cart-pop');
             cartCountMob.classList.add('cart-pop');
 
-            // Show Notification Toast
             toastMessage.innerText = `${productName} ditambahkan!`;
             toast.classList.remove('translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
 
-            // Hide Toast after 3 seconds
             clearTimeout(toastTimeout);
             toastTimeout = setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
+
+        // 6. Desktop Clickable Dropdown Logic
+        const desktopDropdownBtns = document.querySelectorAll('.desktop-dropdown-btn');
+
+        // Menutup menu jika klik di luar area dropdown
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.desktop-dropdown-container')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+                document.querySelectorAll('.icon-arrow').forEach(icon => {
+                    icon.style.transform = 'rotate(0deg)';
+                });
+            }
+        });
+
+        desktopDropdownBtns.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                // Mencegah event bubbling ke window (agar tidak terdeteksi sebagai 'klik di luar')
+                e.stopPropagation();
+
+                const container = this.closest('.desktop-dropdown-container');
+                const menu = container.querySelector('.dropdown-menu');
+                const icon = this.querySelector('.icon-arrow');
+                const isActive = menu.classList.contains('active');
+
+                // Tutup semua dropdown lain terlebih dahulu
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+                document.querySelectorAll('.icon-arrow').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                // Buka atau tutup menu yang sedang diklik
+                if (!isActive) {
+                    menu.classList.add('active');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
     </script>
 </body>
+
 </html>
